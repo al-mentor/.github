@@ -14,7 +14,7 @@ Please describe any relevant performance impact of this change. This can be posi
 
 # Are the following tests ready?
 
-- [ ] Perfomance test
+- [ ] Performance test
 - [ ] E2E test
 
 # Checklist:
