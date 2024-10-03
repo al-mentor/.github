@@ -1,0 +1,35 @@
+name: Check PR File Count Template
+
+# Optional description for the workflow template
+description: >
+  This workflow ensures that pull requests have fewer than 15 files changed.
+  It posts a comment if the limit is exceeded and fails the PR if not corrected.
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  check_pr_files:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install GitHub CLI
+        run: sudo apt-get install gh
+
+      - name: Count changed files
+        id: file_count
+        run: |
+          PR_FILES=$(gh pr view ${{ github.event.pull_request.number }} --json files --jq '.files | length')
+          echo "PR_FILES=$PR_FILES" >> $GITHUB_ENV
+
+      - name: Post a comment if PR exceeds 15 files
+        if: env.PR_FILES > 15
+        run: |
+          gh pr comment ${{ github.event.pull_request.number }} --body "This PR contains **${{ env.PR_FILES }}** files, which is more than the allowed limit of 15 files. Please split it into smaller PRs for easier review."
+        
+      - name: Fail if more than 15 files changed
+        if: env.PR_FILES > 15
+        run: |
+          echo "This PR contains more than 15 files. Please split it into smaller PRs."
+          exit 1
