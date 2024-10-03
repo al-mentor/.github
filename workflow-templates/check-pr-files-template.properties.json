@@ -1,0 +1,9 @@
+{
+  "name": "Check PR File Count",
+  "description": "A workflow that checks pull requests for the number of changed files and comments if the limit is exceeded.",
+  "iconName": "code-review",  // Optional, select an icon from GitHub's available icons
+  "categories": ["Code Review", "PR Management"],
+  "filePatterns": [
+    "pull_request"
+  ]
+}
