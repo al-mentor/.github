@@ -30,14 +30,6 @@ jobs:
           # Set the output variable
           echo "PR_FILES=$FILES_CHANGED" >> $GITHUB_ENV
       
-      - name: Post a comment if PR exceeds 15 files
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
-        if: env.PR_FILES > 15
-        run: |
-          gh pr comment ${{ github.event.pull_request.number }} --body "This PR contains **${{ env.PR_FILES }}** files, which is more than the allowed limit of 15 files. Please split it into smaller PRs for easier review."
-
-
       - name: Fail if more than 15 files changed
         run: |
           if [ ${{ env.PR_FILES }} -gt 15 ]; then
