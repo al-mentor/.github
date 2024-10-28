@@ -30,9 +30,9 @@ jobs:
           # Set the output variable
           echo "PR_FILES=$FILES_CHANGED" >> $GITHUB_ENV
       
-      - name: Fail if more than 15 files changed
+      - name: Fail if more than 20 files changed
         run: |
-          if [ ${{ env.PR_FILES }} -gt 15 ]; then
-            echo "Error: More than 15 files changed in this PR. Please limit to 15 files or fewer."
+          if [ ${{ env.PR_FILES }} -gt 20 ]; then
+            echo "Error: More than 20 files changed in this PR. Please limit to 20 files or fewer."
             exit 1
           fi
