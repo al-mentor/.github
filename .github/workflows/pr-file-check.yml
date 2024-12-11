@@ -27,7 +27,7 @@ jobs:
           FILES_CHANGED=$(git diff --name-only origin/main... | wc -l)
           echo "Changed files: $FILES_CHANGED"
 
-          NON_INTERFACE_FILES=$(echo "$CHANGED_FILES" | grep -vE '^I' | wc -l)
+          NON_INTERFACE_FILES=$(echo "$FILES_CHANGED" | grep -vE '^I' | wc -l)
 
           # Set the output variable
           echo "PR_FILES=$NON_INTERFACE_FILES" >> $GITHUB_ENV
