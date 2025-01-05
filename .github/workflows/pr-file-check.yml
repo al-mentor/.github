@@ -24,10 +24,11 @@ jobs:
         id: count
         run: |
           # Get the number of changed files
-          FILES_CHANGED=$(git diff --name-only origin/main... | wc -l)
-          echo "Changed files: $FILES_CHANGED"
+          FILES_CHANGED=$(git diff --name-only origin/main...)
 
           NON_INTERFACE_FILES=$(echo "$FILES_CHANGED" | grep -vE '^I' | wc -l)
+
+          echo "Changed files: $NON_INTERFACE_FILES"
 
           # Set the output variable
           echo "PR_FILES=$NON_INTERFACE_FILES" >> $GITHUB_ENV
